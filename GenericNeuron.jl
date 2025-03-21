@@ -1,4 +1,4 @@
-mutable struct AbstractNeuron{T}
+mutable struct GenericNeuron{T}
     inputs::Vector{T}
     weights::Vector{T}
     bias::T
@@ -8,7 +8,7 @@ mutable struct AbstractNeuron{T}
 end
 
 "Compute the output value of a neuron"
-function forward(neuron::AbstractNeuron{T}) where T
+function forward(neuron::GenericNeuron{T}) where T
     # Weighted inputs
     weighted_inputs = [neuron.weigh_fn(w, x) for (w, x) in zip(neuron.weights, neuron.inputs)]
     
@@ -20,6 +20,8 @@ function forward(neuron::AbstractNeuron{T}) where T
 end
 
 
+"Calculates the error commited"
+
 
 # EXAMPLES
 
@@ -28,7 +30,7 @@ num_inputs = 5
 inputs = zeros(Float32, num_inputs)
 weights = rand(Float32, num_inputs)
 bias = rand(Float32)
-simple_neuron = AbstractNeuron{Float32}(inputs, weights, bias, (*), (+), x->x)
+simple_neuron = GenericNeuron{Float32}(inputs, weights, bias, (*), (+), x->x)
 
 println(simple_neuron)
 
